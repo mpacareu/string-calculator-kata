@@ -43,20 +43,20 @@ class StringCalculatorTest {
         assertEquals(3, calculator.add("//}\n1{2"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 
-    @Test
-    void add_WhenNumberIsNegative_ThenThrowException() {
+    private void assertNegativeNumbers(String input, String expectedMessage) {
         StringCalculator calculator = new StringCalculator();
-
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> calculator.add("-1")
+                () -> calculator.add(input)
         );
-        assertEquals("Negative numbers are not supported" +": [-1]", exception.getMessage());
-        exception= assertThrows(
-                IllegalArgumentException.class,
-                () -> calculator.add("-1,-4,7,-8")
-        );
-        assertEquals("Negative numbers are not supported" +": [-1, -4, -8]", exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void add_WhenNumberIsNegative_ThenThrowExceptionWithSpecificMessages() {
+
+        assertNegativeNumbers("-1", "Negative numbers are not supported: [-1]");
+        assertNegativeNumbers("-1,-4,7,-8", "Negative numbers are not supported: [-1, -4, -8]");
     }
 
     @Test
@@ -88,5 +88,4 @@ class StringCalculatorTest {
     //adding names
     //adding characters
     //Delimiters [
-
 }
