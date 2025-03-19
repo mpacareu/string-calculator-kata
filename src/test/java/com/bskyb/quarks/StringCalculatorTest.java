@@ -41,10 +41,12 @@ class StringCalculatorTest {
         assertEquals(3, calculator.add("// \n1 2"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(3, calculator.add("///\n1/2"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(3, calculator.add("//}\n1{2"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(3, calculator.add("//]\n1]2"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 
     private void assertNegativeNumbers(String input, String expectedMessage) {
         StringCalculator calculator = new StringCalculator();
+
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> calculator.add(input)
@@ -88,4 +90,5 @@ class StringCalculatorTest {
     //adding names
     //adding characters
     //Delimiters [
+    //Delimiters \n
 }
