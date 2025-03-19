@@ -11,8 +11,7 @@ public class StringCalculator {
     private static final String LINE_BREAK = "\n";
 
     private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
+    private static final int POSITION_OF_SHORT_DELIMITER = 2;
     private static final int THREE = 3;
 
     private static final String OPENING_SQUARE_BRACKET = "\\[";
@@ -25,21 +24,20 @@ public class StringCalculator {
 
     private static final String ASTERISK = "\\*";
     private static final String SUM = "\\+";
-    
+
     private static final String NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED = "Negative numbers are not supported";
 
     public Integer add(String numbers) {
         List<Integer> negatives = new ArrayList<>();
         List<String> delimiters = new ArrayList<>();
 
-        //should substitute this for something taking care of all special characters
         numbers = dealWithMetacharacters(numbers);
         if (numbers.startsWith(DELIMITER_STARTER)) {
             if (isMoreThanOneDelimiterOrLongDelimiter(numbers)) {
                 numbers = numbers.replaceFirst(DELIMITER_STARTER, NULL_STRING);
                 while (numbers.startsWith(OPENING_SQUARE_BRACKET_BASIC)) {
                     delimiters.add(getLongDelimiter(numbers));
-                    numbers = numbers.replaceFirst(OPENING_SQUARE_BRACKET + delimiters.get(delimiters.size() - ONE) + CLOSING_SQUARE_BRACKET, NULL_STRING);
+                    numbers = numbers.replaceFirst(OPENING_SQUARE_BRACKET + delimiters.get(delimiters.size() - 1) + CLOSING_SQUARE_BRACKET, NULL_STRING);
                 }
             } else {
                 delimiters.add(getShortDelimiter(numbers));
@@ -49,7 +47,7 @@ public class StringCalculator {
 
         String[] numbersArray = getArrayOfNumbersSeparated(numbers, delimiters);
 
-        int sum = ZERO;
+        int sum = 0;
         for (String number : numbersArray) {
             if (isNumberLowerThan1000(number)) {
                 int parsedNumber = Integer.parseInt(number);
@@ -61,7 +59,7 @@ public class StringCalculator {
             }
         }
         if (!negatives.isEmpty()) {
-            throw new IllegalArgumentException(NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED);
+            throw new IllegalArgumentException(NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED + ": " + negatives);
         }
         return sum;
     }
@@ -69,14 +67,14 @@ public class StringCalculator {
     private String[] getArrayOfNumbersSeparated(String numbers, List<String> delimiters) {
         numbers = dealWithUnclosedCharacter(numbers.replace(LINE_BREAK, COMA));
         for (String delimiter : delimiters) {
-            numbers = numbers.replace(delimiter,COMA);
+            numbers = numbers.replace(delimiter, COMA);
         }
         return numbers.split(COMA);
     }
 
     private String dealWithUnclosedCharacter(String numbers) {
-        if(numbers.contains(CLOSING_BRACKET)||numbers.contains(OPENING_BRACKET)||numbers.contains(OPENING_CURLY_BRACES)|| numbers.contains(CLOSING_CURLY_BRACES) || numbers.contains(CLOSING_SQUARE_BRACKET) || numbers.contains(OPENING_SQUARE_BRACKET)){
-            numbers = numbers.replace(CLOSING_BRACKET,NULL_STRING).replace(OPENING_BRACKET,NULL_STRING).replace(OPENING_CURLY_BRACES,COMA).replace(CLOSING_CURLY_BRACES,COMA).replace(CLOSING_SQUARE_BRACKET,COMA).replace(OPENING_SQUARE_BRACKET,COMA);
+        if (numbers.contains(CLOSING_BRACKET) || numbers.contains(OPENING_BRACKET) || numbers.contains(OPENING_CURLY_BRACES) || numbers.contains(CLOSING_CURLY_BRACES) || numbers.contains(CLOSING_SQUARE_BRACKET) || numbers.contains(OPENING_SQUARE_BRACKET)) {
+            numbers = numbers.replace(CLOSING_BRACKET, NULL_STRING).replace(OPENING_BRACKET, NULL_STRING).replace(OPENING_CURLY_BRACES, COMA).replace(CLOSING_CURLY_BRACES, COMA).replace(CLOSING_SQUARE_BRACKET, COMA).replace(OPENING_SQUARE_BRACKET, COMA);
         }
         return numbers;
     }
@@ -94,7 +92,7 @@ public class StringCalculator {
     }
 
     private boolean isMoreThanOneDelimiterOrLongDelimiter(String numbers) {
-        return OPENING_SQUARE_BRACKET_BASIC.equals(Character.toString(numbers.charAt(TWO))) && !(LINE_BREAK.equals(Character.toString(numbers.charAt(THREE))));
+        return OPENING_SQUARE_BRACKET_BASIC.equals(Character.toString(numbers.charAt(POSITION_OF_SHORT_DELIMITER))) && !(LINE_BREAK.equals(Character.toString(numbers.charAt(THREE))));
     }
 
     private String getLongDelimiter(String numbers) {
@@ -105,6 +103,6 @@ public class StringCalculator {
     }
 
     private String getShortDelimiter(String numbers) {
-        return String.valueOf(numbers.charAt(TWO));
+        return String.valueOf(numbers.charAt(POSITION_OF_SHORT_DELIMITER));
     }
 }

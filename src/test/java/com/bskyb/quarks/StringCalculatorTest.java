@@ -46,8 +46,17 @@ class StringCalculatorTest {
     @Test
     void add_WhenNumberIsNegative_ThenThrowException() {
         StringCalculator calculator = new StringCalculator();
-        assertThrows(IllegalArgumentException.class, () -> calculator.add("-1"));
 
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculator.add("-1")
+        );
+        assertEquals("Negative numbers are not supported" +": [-1]", exception.getMessage());
+        exception= assertThrows(
+                IllegalArgumentException.class,
+                () -> calculator.add("-1,-4,7,-8")
+        );
+        assertEquals("Negative numbers are not supported" +": [-1, -4, -8]", exception.getMessage());
     }
 
     @Test
