@@ -61,10 +61,10 @@ public class StringCalculator {
 
         if (numbers.startsWith(DELIMITER_STARTER)) {
             if (isMoreThanOneDelimiterOrLongDelimiter(numbers)) {
-                String delimiters_string = getStringWithAllDelimiters(numbers);
-                while (!delimiters_string.isEmpty()) {
-                    delimiters.add(getDelimiterBetweenBrackets(delimiters_string));
-                    delimiters_string = removeFirstDelimiter(delimiters_string);
+                String delimitersPart = getStringWithAllDelimiters(numbers);
+                while (!delimitersPart.isEmpty()) {
+                    delimiters.add(getDelimiterBetweenBrackets(delimitersPart));
+                    delimitersPart = removeFirstDelimiter(delimitersPart);
                 }
             } else {
                 delimiters.add(getShortDelimiter(numbers));
@@ -77,12 +77,12 @@ public class StringCalculator {
         return numbers.substring(0, numbers.lastIndexOf("]") + 1);
     }
 
-    private static String removeFirstDelimiter(String delimiters_string) {
-        return delimiters_string.substring(delimiters_string.indexOf("]") + 1);
+    private static String removeFirstDelimiter(String delimitersPart) {
+        return delimitersPart.substring(delimitersPart.indexOf("]") + 1);
     }
 
-    private static String getDelimiterBetweenBrackets(String delimiters_string) {
-        return delimiters_string.substring(delimiters_string.indexOf("[") + 1, delimiters_string.indexOf("]"));
+    private static String getDelimiterBetweenBrackets(String delimitersPart) {
+        return delimitersPart.substring(delimitersPart.indexOf("[") + 1, delimitersPart.indexOf("]"));
     }
 
     private String[] getArrayOfNumbersSeparated(String numbers, List<String> delimiters) {
