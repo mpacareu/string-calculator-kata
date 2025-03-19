@@ -9,7 +9,6 @@ class StringCalculatorTest {
 
     private static final String NOT_RETURNING_THE_CORRECT_NUMBER = "Not returning the correct number";
 
-    //given_when_then
     @Test
     void add_WhenEmpty_ThenReturnsZero() {
         StringCalculator calculator = new StringCalculator();
@@ -75,4 +74,10 @@ class StringCalculatorTest {
         assertEquals(6, calculator.add("//[///][;´]\n1///2;´3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(10, calculator.add("//[///][;´][_]\n1///2;´3_4"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
+
+    //EDGE CASES
+    //adding names
+    //adding characters
+    //Delimiters [
+
 }
