@@ -7,49 +7,52 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StringCalculatorTest {
 
+    private static final String NOT_RETURNING_THE_CORRECT_NUMBER = "Not returning the correct number";
+
+    //given_when_then
     @Test
-    void addIf0() {
+    void add_WhenEmpty_ThenReturnsZero() {
         StringCalculator calculator = new StringCalculator();
 
         assertEquals(0, calculator.add(""), "Not returning 0 if empty string");
     }
 
     @Test
-    void addNumbersSeparatedByComma() {
+    void add_WhenNumbersSeparedByComa() {
         StringCalculator calculator = new StringCalculator();
 
-        assertEquals(4, calculator.add("4"), "Not returning the correct number");
-        assertEquals(4, calculator.add("3,,1"), "Not returning the correct number");
-        assertEquals(119, calculator.add("20,45,54"), "Not returning the correct number");
+        assertEquals(4, calculator.add("4"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(4, calculator.add("3,,1"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(119, calculator.add("20,45,54"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 
     @Test
-    void addNumbersSeparatedByNewLines() {
+    void add_WhenNumbersSeparatedByNewLines() {
         StringCalculator calculator = new StringCalculator();
 
-        assertEquals(6, calculator.add("1\n2,3"), "Not returning the correct number");
-        assertEquals(6, calculator.add("1\n2,\n\n3"), "Not returning the correct number");
+        assertEquals(6, calculator.add("1\n2,3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(6, calculator.add("1\n2,\n\n3"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 
     @Test
-    void addWithDifferentDelimiters() {
+    void add_WhenDifferentDelimiters() {
         StringCalculator calculator = new StringCalculator();
 
-        assertEquals(3, calculator.add("//;\n1;2"), "Not returning the correct number");
-        assertEquals(3, calculator.add("// \n1 2"), "Not returning the correct number");
-        assertEquals(3, calculator.add("///\n1/2"), "Not returning the correct number");
-        assertEquals(3, calculator.add("//}\n1{2"), "Not returning the correct number");
+        assertEquals(3, calculator.add("//;\n1;2"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(3, calculator.add("// \n1 2"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(3, calculator.add("///\n1/2"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(3, calculator.add("//}\n1{2"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 
     @Test
-    void throwExceptionWhenIsNegative() {
+    void add_WhenNumberIsNegative_ThenThrowException() {
         StringCalculator calculator = new StringCalculator();
         assertThrows(IllegalArgumentException.class, () -> calculator.add("-1"));
 
     }
 
     @Test
-    void numbersBiggerThan1000ShouldBeIgnored() {
+    void add_WhenNumbersBiggerThan1000_ThenIgnoreThem() {
         StringCalculator calculator = new StringCalculator();
 
         assertEquals(2, calculator.add("1001,2"), "Exception not thrown");
@@ -57,19 +60,19 @@ class StringCalculatorTest {
     }
 
     @Test
-    void addWhenDelimiterItsMoreTHanOneCharacter() {
+    void add_WhenDelimiterItsMoreTHanOneCharacter() {
         StringCalculator calculator = new StringCalculator();
 
-        assertEquals(6, calculator.add("//[´´´]\n1´´´2´´´3"), "Not returning the correct number");
-        assertEquals(6, calculator.add("//[***]\n1***2***3"), "Not returning the correct number");
+        assertEquals(6, calculator.add("//[´´´]\n1´´´2´´´3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(6, calculator.add("//[***]\n1***2***3"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 
     @Test
-    void addWhenMoreThanOneDelimiter() {
+    void add_WhenMoreThanOneDelimiter() {
         StringCalculator calculator = new StringCalculator();
 
-        assertEquals(6, calculator.add("//[/][;]\n1/2;3"), "Exception not thrown");
-        assertEquals(6, calculator.add("//[///][;´]\n1///2;´3"), "Exception not thrown");
-        assertEquals(10, calculator.add("//[///][;´][_]\n1///2;´3_4"), "Exception not thrown");
+        assertEquals(6, calculator.add("//[/][;]\n1/2;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(6, calculator.add("//[///][;´]\n1///2;´3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(10, calculator.add("//[///][;´][_]\n1///2;´3_4"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
 }
