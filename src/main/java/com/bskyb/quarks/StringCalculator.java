@@ -5,17 +5,11 @@ import java.util.List;
 
 public class StringCalculator {
 
-    private static final String DELIMITER_STARTER = "//";
     private static final String COMA = ",";
     private static final String NULL_STRING = "";
     private static final String LINE_BREAK = "\n";
 
-    private static final int ZERO = 0;
-    private static final int POSITION_OF_SHORT_DELIMITER = 2;
-    private static final int THREE = 3;
-
     private static final String OPENING_SQUARE_BRACKET = "\\[";
-    private static final String OPENING_SQUARE_BRACKET_BASIC = "[";
     private static final String CLOSING_SQUARE_BRACKET = String.valueOf(']');
     private static final String OPENING_CURLY_BRACES = "{";
     private static final String CLOSING_CURLY_BRACES = "}";
@@ -31,9 +25,9 @@ public class StringCalculator {
         List<Integer> negatives = new ArrayList<>();
         numbers = dealWithMetacharacters(numbers);
 
-        List<String> delimiters = getDelimitersInArray(numbers);
+        Delimiters delimiters = new Delimiters(numbers);
 
-        String[] numbersArray = getArrayOfNumbersSeparated(numbers, delimiters);
+        String[] numbersArray = getArrayOfNumbersSeparated(numbers, delimiters.getListOfDelimiters());
 
         int sum = 0;
         for (String number : numbersArray) {
@@ -54,35 +48,6 @@ public class StringCalculator {
         if (!negatives.isEmpty()) {
             throw new IllegalArgumentException(NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED + ": " + negatives);
         }
-    }
-
-    private List<String> getDelimitersInArray(String numbers) {
-        List<String> delimiters = new ArrayList<>();
-
-        if (numbers.startsWith(DELIMITER_STARTER)) {
-            if (isMoreThanOneDelimiterOrLongDelimiter(numbers)) {
-                String delimitersPart = getStringWithAllDelimiters(numbers);
-                while (!delimitersPart.isEmpty()) {
-                    delimiters.add(getDelimiterBetweenBrackets(delimitersPart));
-                    delimitersPart = removeFirstDelimiter(delimitersPart);
-                }
-            } else {
-                delimiters.add(getShortDelimiter(numbers));
-            }
-        }
-        return delimiters;
-    }
-
-    private static String getStringWithAllDelimiters(String numbers) {
-        return numbers.substring(0, numbers.lastIndexOf("]") + 1);
-    }
-
-    private static String removeFirstDelimiter(String delimitersPart) {
-        return delimitersPart.substring(delimitersPart.indexOf("]") + 1);
-    }
-
-    private static String getDelimiterBetweenBrackets(String delimitersPart) {
-        return delimitersPart.substring(delimitersPart.indexOf("[") + 1, delimitersPart.indexOf("]"));
     }
 
     private String[] getArrayOfNumbersSeparated(String numbers, List<String> delimiters) {
@@ -107,18 +72,11 @@ public class StringCalculator {
     }
 
     private boolean isNegative(int parsedNumber) {
-        return parsedNumber < ZERO;
+        return parsedNumber < 0;
     }
 
     private boolean isNumberLowerThan1000(String number) {
-        return !(NULL_STRING.equals(number) || number.length() > THREE);
+        return !(NULL_STRING.equals(number) || number.length() > 3);
     }
 
-    private boolean isMoreThanOneDelimiterOrLongDelimiter(String numbers) {
-        return OPENING_SQUARE_BRACKET_BASIC.equals(Character.toString(numbers.charAt(POSITION_OF_SHORT_DELIMITER))) && !(LINE_BREAK.equals(Character.toString(numbers.charAt(THREE))));
-    }
-
-    private String getShortDelimiter(String numbers) {
-        return String.valueOf(numbers.charAt(POSITION_OF_SHORT_DELIMITER));
-    }
 }
