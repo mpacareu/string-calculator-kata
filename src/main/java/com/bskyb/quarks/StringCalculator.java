@@ -31,7 +31,7 @@ public class StringCalculator {
 
         int sum = 0;
         for (String number : numbersArray) {
-            if (isNumberLowerThan1000(number)) {
+            if (isNumberAndLowerThan1000(number)) {
                 int parsedNumber = Integer.parseInt(number);
                 if (isNegative(parsedNumber)) {
                     negatives.add(parsedNumber);
@@ -44,7 +44,7 @@ public class StringCalculator {
         return sum;
     }
 
-    private static void checkIfNegativesAndThrowException(List<Integer> negatives) {
+    private void checkIfNegativesAndThrowException(List<Integer> negatives) {
         if (!negatives.isEmpty()) {
             throw new IllegalArgumentException(NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED + ": " + negatives);
         }
@@ -55,7 +55,6 @@ public class StringCalculator {
             numbers = numbers.substring(numbers.indexOf("\n") + 1);
         }
         numbers = dealWithUnclosedCharacter(numbers.replace(LINE_BREAK, COMA));
-
         for (String delimiter : delimiters) {
             numbers = numbers.replace(delimiter, COMA);
         }
@@ -75,8 +74,8 @@ public class StringCalculator {
         return parsedNumber < 0;
     }
 
-    private boolean isNumberLowerThan1000(String number) {
-        return !(NULL_STRING.equals(number) || number.length() > 3);
+    private boolean isNumberAndLowerThan1000(String number) {
+        return !(NULL_STRING.equals(number) || number.length() > 3 || !Character.isDigit(number.charAt(0)));
     }
 
 }

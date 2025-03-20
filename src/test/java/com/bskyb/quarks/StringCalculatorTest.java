@@ -84,8 +84,17 @@ class StringCalculatorTest {
         assertEquals(6, calculator.add("//[/][;]\n1/2;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(6, calculator.add("//[///][;´]\n1///2;´3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(10, calculator.add("//[///][;´][_]\n1///2;´3_4"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(6, calculator.add("//[abc][;]\n1abc2;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+
     }
 
+    @Test
+    void add_WhenNames_ThenIgnore(){
+        StringCalculator calculator = new StringCalculator();
+
+        assertEquals(4, calculator.add("//[/][;]\n1/abc;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(4, calculator.add("//[/][;]\n1/abcdf;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+    }
     //EDGE CASES
     //adding names
     //adding characters

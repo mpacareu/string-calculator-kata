@@ -7,7 +7,6 @@ public class Delimiters {
     private static final String LINE_BREAK = "\n";
 
     private static final int POSITION_OF_SHORT_DELIMITER = 2;
-    private static final int THREE = 3;
 
     private static final String OPENING_SQUARE_BRACKET_BASIC = "[";
 
@@ -44,7 +43,8 @@ public class Delimiters {
     }
 
     private boolean isMoreThanOneDelimiterOrLongDelimiter(String numbers) {
-        return OPENING_SQUARE_BRACKET_BASIC.equals(Character.toString(numbers.charAt(POSITION_OF_SHORT_DELIMITER))) && !(LINE_BREAK.equals(Character.toString(numbers.charAt(THREE))));
+        return OPENING_SQUARE_BRACKET_BASIC.equals(Character.toString(numbers.charAt(POSITION_OF_SHORT_DELIMITER)))
+                && !(LINE_BREAK.equals(Character.toString(numbers.charAt(3))));
     }
 
     private String getShortDelimiter(String numbers) {
