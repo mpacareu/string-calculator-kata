@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 public class Delimiters {
     private static final String DELIMITER_STARTER = "//";
-    private static final String LINE_BREAK = "\n";
 
     private static final int POSITION_OF_SHORT_DELIMITER = 2;
 
@@ -31,7 +30,7 @@ public class Delimiters {
     }
 
     private String getStringWithAllDelimiters(String numbers) {
-        return numbers.substring(0, numbers.lastIndexOf("]") + 1);
+        return numbers.substring(0, numbers.lastIndexOf("]") + 1).replace("\n","");
     }
 
     private String removeFirstDelimiter(String delimitersPart) {
@@ -44,7 +43,7 @@ public class Delimiters {
 
     private boolean isMoreThanOneDelimiterOrLongDelimiter(String numbers) {
         return OPENING_SQUARE_BRACKET_BASIC.equals(Character.toString(numbers.charAt(POSITION_OF_SHORT_DELIMITER)))
-                && !(LINE_BREAK.equals(Character.toString(numbers.charAt(3))));
+                && (numbers.contains("]"));
     }
 
     private String getShortDelimiter(String numbers) {

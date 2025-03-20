@@ -67,7 +67,7 @@ public class StringCalculator {
     }
 
     private String dealWithMetacharacters(String numbers) {
-        return numbers.replaceAll(ASTERISK, COMA).replaceAll(SUM, COMA);
+        return numbers.replace(ASTERISK, COMA).replace(SUM, COMA);
     }
 
     private boolean isNegative(int parsedNumber) {
@@ -75,7 +75,7 @@ public class StringCalculator {
     }
 
     private boolean isNumberAndLowerThan1000(String number) {
-        return !(NULL_STRING.equals(number) || number.length() > 3 || !isNumeric(number));
+        return !(number.length() > 3 || !isNumeric(number));
     }
 
     private boolean isNumeric(String str) {
