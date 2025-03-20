@@ -94,6 +94,7 @@ class StringCalculatorTest {
 
         assertEquals(4, calculator.add("//[/][;]\n1/abc;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(4, calculator.add("//[/][;]\n1/abcdf;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
+        assertEquals(4, calculator.add("//[/][;]\n1/3b4f;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
     //EDGE CASES
     //adding names

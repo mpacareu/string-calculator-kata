@@ -75,7 +75,16 @@ public class StringCalculator {
     }
 
     private boolean isNumberAndLowerThan1000(String number) {
-        return !(NULL_STRING.equals(number) || number.length() > 3 || !Character.isDigit(number.charAt(0)));
+        return !(NULL_STRING.equals(number) || number.length() > 3 || !isNumeric(number));
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
 }
