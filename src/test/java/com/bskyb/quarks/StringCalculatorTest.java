@@ -87,14 +87,12 @@ class StringCalculatorTest {
         assertEquals(10, calculator.add("//[///][;´][_]\n1///2;´3_4"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(6, calculator.add("//[abc][;]\n1abc2;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(6, calculator.add("//[[[[][[]\n1[[[2[3"), NOT_RETURNING_THE_CORRECT_NUMBER);
-        //assertEquals(6, calculator.add("//[]]][]]\n1]]2]3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(6, calculator.add("//[\nas][\n]\n1\nas2\n3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(6, calculator.add("//[\nas][\n]\n1\nas2\n3"), NOT_RETURNING_THE_CORRECT_NUMBER);
-
     }
 
     @Test
-    void add_WhenCharacters_ThenIgnore(){
+    void add_WhenCharacters_ThenIgnore() {
         StringCalculator calculator = new StringCalculator();
 
         assertEquals(4, calculator.add("//[/][;]\n1/abc;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
@@ -103,8 +101,4 @@ class StringCalculatorTest {
         assertEquals(4, calculator.add("//[/][;]\n1/3b4f;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
         assertEquals(4, calculator.add("//[/][;]\n1/¡+`´ç`v;3"), NOT_RETURNING_THE_CORRECT_NUMBER);
     }
-    //EDGE CASES
-
-    //Delimiters \n
-
 }

@@ -20,6 +20,7 @@ public class StringCalculator {
     private static final String SUM = "\\+";
 
     private static final String NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED = "Negative numbers are not supported";
+    public static final int SIZE_OF_NUMBERS_SMALLER_THAN_1000 = 3;
 
     public Integer add(String numbers) {
         List<Integer> negatives = new ArrayList<>();
@@ -46,13 +47,13 @@ public class StringCalculator {
 
     private void checkIfNegativesAndThrowException(List<Integer> negatives) {
         if (!negatives.isEmpty()) {
-            throw new IllegalArgumentException(NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED + ": " + negatives);
+            throw new IllegalArgumentException(NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED + negatives);
         }
     }
 
     private String[] getArrayOfNumbersSeparated(String numbers, List<String> delimiters) {
         if (!delimiters.isEmpty()) {
-            numbers = numbers.substring(numbers.indexOf("\n") + 1);
+            numbers = numbers.substring(numbers.indexOf(LINE_BREAK) + 1);
         }
         numbers = dealWithUnclosedCharacter(numbers.replace(LINE_BREAK, COMA));
         for (String delimiter : delimiters) {
@@ -75,7 +76,7 @@ public class StringCalculator {
     }
 
     private boolean isNumberAndLowerThan1000(String number) {
-        return !(number.length() > 3 || !isNumeric(number));
+        return !(number.length() > SIZE_OF_NUMBERS_SMALLER_THAN_1000 || !isNumeric(number));
     }
 
     private boolean isNumeric(String str) {
