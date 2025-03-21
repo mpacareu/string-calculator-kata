@@ -20,7 +20,7 @@ public class StringCalculator {
     private static final String SUM = "\\+";
 
     private static final String NEGATIVE_NUMBERS_ARE_NOT_SUPPORTED = "Negative numbers are not supported";
-    public static final int SIZE_OF_NUMBERS_SMALLER_THAN_1000 = 3;
+    private static final int SIZE_OF_NUMBERS_SMALLER_THAN_1000 = 3;
 
     public Integer add(String numbers) {
         List<Integer> negatives = new ArrayList<>();
@@ -83,9 +83,8 @@ public class StringCalculator {
         try {
             Integer.parseInt(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
-
 }
