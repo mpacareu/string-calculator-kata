@@ -5,7 +5,15 @@ package com.bskyb.quarks;
  */
 public class StringCalculator {
     public int add(String numbers) {
-        //TODO: implement something :)
-        return 42;
+        if (numbers.isEmpty()) {
+            return 0;
+        }
+        String[] parts = numbers.split("[,\n]");
+        int sum = 0;
+
+        for (String part : parts) { //for (int i = 0; i < parts.length; i++) {
+            sum += Integer.parseInt(part);
+        }
+        return sum;
     }
 }
