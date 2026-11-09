@@ -52,4 +52,14 @@ class StringCalculatorTest {
         assertEquals("negatives not allowed: -2, -3", exception.getMessage());
     }
 
+    @Test
+    void test6BiggerThan1000() {
+        assertEquals(2, calculator.add("2,1001")); //Amb espais peta ("2, 1001") Poc flexible
+    }
+
+    @Test
+    void test6BiggerThan10002() {
+        assertEquals(1002, calculator.add("2,1001,1000"));
+    }
+
 }
