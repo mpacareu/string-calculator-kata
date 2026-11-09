@@ -2,8 +2,7 @@ package com.bskyb.quarks;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorTest {
 
@@ -37,6 +36,20 @@ class StringCalculatorTest {
     @Test
     void test4ChangeDelimiter() {
         assertEquals(3, calculator.add("//;\n1;2"));
+    }
+
+    @Test
+    void test5NegativeNumber() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, () -> calculator.add("1,-2")); //Passem el codi sense executar pq no peti abans de cridar el mètode
+        assertEquals("negatives not allowed: -2", exception.getMessage());
+    }
+
+    @Test
+    void test5NegativeNumbers() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, () -> calculator.add("1,-2,-3"));
+        assertEquals("negatives not allowed: -2, -3", exception.getMessage());
     }
 
 }
