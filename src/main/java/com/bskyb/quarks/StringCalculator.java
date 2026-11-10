@@ -1,5 +1,7 @@
 package com.bskyb.quarks;
 
+import java.util.regex.Pattern;
+
 /**
  * Hello world!
  */
@@ -12,7 +14,13 @@ public class StringCalculator {
         String delimiter = "[,\n]";
         if (numbers.startsWith("//")){
             delimiter = numbers.substring("//".length(), numbers.indexOf("\n"));
-            numbers = numbers.substring(numbers.indexOf("\n") + 1); //Considero que el Delimiter té sempre llargada = 1
+
+            if (delimiter.startsWith("[") && delimiter.endsWith("]")){
+                delimiter = delimiter.substring(1, delimiter.length() -1);
+            }
+
+            delimiter = Pattern.quote(delimiter); //Preparem Delimiter pq funcio split no peti
+            numbers = numbers.substring(numbers.indexOf("\n") + 1);
         }
 
         String[] parts = numbers.split(delimiter);

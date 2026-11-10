@@ -54,12 +54,22 @@ class StringCalculatorTest {
 
     @Test
     void test6BiggerThan1000() {
-        assertEquals(2, calculator.add("2,1001")); //Amb espais peta ("2, 1001") Poc flexible
+        assertEquals(2, calculator.add("2,1001")); //Amb espais peta al fer split()("2, 1001") Poc flexible
     }
 
     @Test
     void test6BiggerThan10002() {
         assertEquals(1002, calculator.add("2,1001,1000"));
+    }
+
+    @Test
+    void test7DifferentDelimiter() {
+        assertEquals(6, calculator.add("//[***]\n1***2***3"));
+    }
+
+    @Test
+    void test7DifferentDelimiters() {
+        assertEquals(5, calculator.add("//[;]\n2;3"));
     }
 
 }
