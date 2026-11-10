@@ -72,4 +72,18 @@ class StringCalculatorTest {
         assertEquals(5, calculator.add("//[;]\n2;3"));
     }
 
+    @Test
+    void test8MultipleDelimiters() {
+        assertEquals(6, calculator.add("//[*][%]\n1*2%3"));
+    }
+    @Test
+    void test8MultipleDelimiters2() {
+        assertEquals(10, calculator.add("//[*][%][&]\n1*2%3&4"));
+    }
+
+    @Test
+    void test9MultipleDelimitersMoreThan1Char() {
+        assertEquals(10, calculator.add("//[**][%%][&&&]\n1**2%%3&&&4"));
+    }
+
 }
