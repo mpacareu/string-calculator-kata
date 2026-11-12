@@ -30,15 +30,16 @@ public class StringCalculator {
 
         String[] parts = numbers.split("[,\n]");
         int sum = 0;
-        String negatives = "";
+        //String negatives = "";
+        StringBuilder negatives = new StringBuilder();
 
         for (String part : parts) { //for (int i = 0; i < parts.length; i++) {
             int number = Integer.parseInt(part);
             if (number < 0){
                 if (!negatives.isEmpty()){
-                    negatives += ", ";
+                    negatives.append(", ");
                 }
-                negatives += number;
+                negatives.append(number);
             }
             if (number <= 1000) {
                 sum += number;
